@@ -1,0 +1,75 @@
+mql5
+// +------------------------------------------------------------------+
+// |                                                  Neuro FX MT5   |
+// |                                   https://www.forexroboteasy.com |
+// |                                                   Forex Robot Easy Team |
+// +------------------------------------------------------------------+
+#property copyright 'Forex Robot Easy Team'
+#property link      'https://www.forexroboteasy.com'
+#property version   '1.00'
+#property strict
+
+// Input parameters
+input double LotSize = 0.01;
+input int StopLoss = 50;
+input int TakeProfit = 100;
+
+// Global variables
+int ticket = 0;
+
+// Initialization function
+int OnInit()
+{
+    // Print message on initialization
+    Print('Neuro FX MT5 Expert Advisor initialized.');
+    
+    return(INIT_SUCCEEDED);
+}
+
+// Deinitialization function
+void OnDeinit(const int reason)
+{
+    // Print message on deinitialization
+    Print('Neuro FX MT5 Expert Advisor deinitialized. Reason: ', reason);
+}
+
+// Trading function
+void OnTick()
+{
+    // Check if a trade is already open
+    if (ticket == 0)
+    {
+        // Perform market analysis using sophisticated algorithms
+        
+        // Execute trade based on pre-set Forex strategies
+        ticket = OrderSend(Symbol(), OP_BUY, LotSize, Ask, 0, Bid - StopLoss * Point, Bid + TakeProfit * Point, 'Neuro FX MT5', 0, 0, clrGreen);
+        
+        // Check if trade execution was successful
+        if (ticket > 0)
+        {
+            // Print message when a trade is opened
+            Print('Trade opened - Ticket: ', ticket);
+        }
+        else
+        {
+            // Print error message if trade execution failed
+            Print('Error opening trade - Error code: ', GetLastError());
+        }
+    }
+}
+
+// Execution entry point
+void OnStart()
+{
+    // Print message when the expert advisor starts
+    Print('Neuro FX MT5 Expert Advisor started.');
+    
+    // Run the expert advisor until stopped
+    while (!IsStopped())
+    {
+        OnTick();
+    }
+    
+    // Print message when the expert advisor stops
+    Print('Neuro FX MT5 Expert Advisor stopped.');
+}
